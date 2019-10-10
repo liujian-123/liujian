@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.liujian.shop.dao.GoodsMapper">
+	<select id="getlist" resultType="GoodsVO">
+		SELECT * from tb_goods g LEFT JOIN tb_brand b on g.bid=b.bid LEFT JOIN tb_goodskind s ON g.tid=s.tid
+		<where>
+			<if test="null!=name and name!=''">
+				g.gname like #{name}
+			</if>
+		</where>
+	</select>
+	
+	<delete id="dels">
+		delete from tb_goods where gid in ('${id}')
+	</delete>
+	
+	<select id="getlistbyid" resultType="GoodsVO">
+		SELECT * from tb_goods g LEFT JOIN tb_brand b on g.bid=b.bid LEFT JOIN tb_goodskind s ON g.tid=s.tid where gid=#{id}
+	</select>
+	<select id="getBrand" resultType="Brand">
+		select * from tb_brand
+	</select>
+	
+	<select id="getKind" resultType="GoodsKind">
+		select * from tb_goodskind
+	</select>
+</mapper>
